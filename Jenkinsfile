@@ -8,14 +8,19 @@ pipeline {
     }
 
     stage('log') {
-      steps {
-        sh 'ls -laht'
-      }
-    }
+      parallel {
+        stage('log') {
+          steps {
+            sh 'ls -laht'
+          }
+        }
 
-    stage('Build') {
-      steps {
-        sh 'docker build -f jenkins_test/Dockerfile .'
+        stage('log_1') {
+          steps {
+            sh 'pwd'
+          }
+        }
+
       }
     }
 
